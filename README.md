@@ -1,0 +1,1 @@
+This project will show basic info about wild fires in the area.
