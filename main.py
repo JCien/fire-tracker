@@ -21,7 +21,7 @@ table.field_names = ["Fire Name", "Size (in acres)", "Containment %", "Date Star
 table.align = "c"
 
 for fire in data:
-    table.add_row([fire['Name'], fire['AcresBurned'], fire['PercentContained'], fire['Started']])
+    table.add_row([fire['Name'], fire['AcresBurned'], fire['PercentContained'], fire['StartedDateOnly']])
 
 def main():
     print(table.get_string())
