@@ -6,7 +6,7 @@ import requests
 load_dotenv()
 
 print("*****")
-print("This app will list current fires in California.")
+print("This app will list current fires in California")
 print("Using data from fire.ca.gov")
 print("*****")
 
@@ -21,6 +21,7 @@ elif (include_inactive == "No" or include_inactive == "no" or include_inactive =
     active_only = True
 else:
     print(f"Invalid input: {include_inactive}")
+    print("Valid input is either (Y)es or (N)o")
     sys.exit(1)
 
 if (active_only):
