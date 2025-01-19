@@ -1,13 +1,26 @@
 from dotenv import load_dotenv
 from prettytable import PrettyTable
-import os
+import sys
 import requests
 
 load_dotenv()
 
+print("*****")
+print("This app will list current fires in California.")
+print("*****")
+
+include_inactive = input("Include inactive fires? (Yes or No): ")
+
 payload_inactive = {'inactive': 'false'}
 payload_active = {'inactive': 'true'}
-active_only = True
+
+if (include_inactive == "Yes" or include_inactive == "yes" or include_inactive == "y"):
+    active_only = False
+elif (include_inactive == "No" or include_inactive == "no" or include_inactive == "n"):
+    active_only = True
+else:
+    print(f"Invalid input: {include_inactive}")
+    sys.exit(1)
 
 if (active_only):
     r = requests.get('https://incidents.fire.ca.gov/umbraco/api/IncidentApi/List', params=payload_inactive)
@@ -17,14 +30,14 @@ else:
 data = r.json()
 
 table = PrettyTable()
-table.field_names = ["Fire Name", "Size (in acres)", "Containment %", "Date Started"]
+table.field_names = ["Fire Name", "Size (in acres)", "Containment %", "Date Started", "County"]
 table.align = "c"
-
+table.align["Fire Name"] = "l"
 for fire in data:
-    table.add_row([fire['Name'], fire['AcresBurned'], fire['PercentContained'], fire['StartedDateOnly']])
+    table.add_row([fire['Name'], fire['AcresBurned'], fire['PercentContained'], fire['StartedDateOnly'], fire['County']])
 
 def main():
-    print(table.get_string())
+    print(table.get_string(sortby="Size (in acres)", reversesort=True))
 
 if __name__ == "__main__":
     main()
