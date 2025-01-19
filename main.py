@@ -7,6 +7,7 @@ load_dotenv()
 
 print("*****")
 print("This app will list current fires in California.")
+print("Using data from fire.ca.gov")
 print("*****")
 
 include_inactive = input("Include inactive fires? (Yes or No): ")
