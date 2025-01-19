@@ -14,9 +14,9 @@ include_inactive = input("Include inactive fires? (Yes or No): ")
 payload_inactive = {'inactive': 'false'}
 payload_active = {'inactive': 'true'}
 
-if (include_inactive == "Yes" or include_inactive == "yes" or include_inactive == "y"):
+if (include_inactive == "Yes" or include_inactive == "yes" or include_inactive == "y" or include_inactive == "Y"):
     active_only = False
-elif (include_inactive == "No" or include_inactive == "no" or include_inactive == "n"):
+elif (include_inactive == "No" or include_inactive == "no" or include_inactive == "n" or include_inactive == "N"):
     active_only = True
 else:
     print(f"Invalid input: {include_inactive}")
