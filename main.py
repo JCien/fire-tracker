@@ -1,8 +1,5 @@
-from dotenv import load_dotenv
 from prettytable import PrettyTable
 import requests
-
-load_dotenv()
 
 def format_location(data):
     for fire in data:
