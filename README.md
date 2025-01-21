@@ -1,6 +1,7 @@
 This project will show basic info about wildfires in California.  
 It uses data from fire.ca.gov  
 
+<pre>
 Example:  
 +----------------------+-----------------+---------------+--------------+--------------------------+----------------------+  
 |      Fire Name       | Size (in acres) | Containment % | Date Started |           City           |        County        |  
@@ -21,7 +22,7 @@ Example:
 |     Olivas Fire      |       11.0      |     100.0     |  2025-01-08  |         Ventura          |       Ventura        |  
 |      Scout Fire      |       2.0       |     100.0     |  2025-01-14  |        Riverside         |      Riverside       |  
 +----------------------+-----------------+---------------+--------------+--------------------------+----------------------+  
-
+</pre>
 It will prompt if you want to include active fires in the table and by what column you would like to sort by.  
 
 Python Dependencies:  
