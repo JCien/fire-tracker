@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from prettytable import PrettyTable
 import requests
 import os
@@ -17,19 +19,17 @@ def format_location(data):
     for fire in data:
         new_location = fire["Location"].split(",")
         if len(new_location[-1]) > 20 and len(new_location) < 2:
-            print("This has no City in Location")
             fire["Location"] = fire["County"]
         else:
             fire["Location"] = new_location[-1].strip()
     return data
 
 
-def isolate_location(location, data):
-    isolated_data = []
+def format_percentage(data):
     for fire in data:
-        if fire["Location"] == location:
-            isolated_data.append(fire["Location"])
-    return isolated_data
+        if fire["PercentContained"] == None:
+            fire["PercentContained"] = 0.0
+    return data
 
 
 def main():
@@ -99,6 +99,7 @@ def main():
     table.align = "c"
 
     data = format_location(data)
+    data = format_percentage(data)
 
     for fire in data:
         table.add_row(
