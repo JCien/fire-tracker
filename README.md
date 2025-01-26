@@ -1,8 +1,10 @@
 This project will show basic info about wildfires in California.  
 It uses data from fire.ca.gov  
 
-<pre>
+Just install dependencies and run the fire-tracker python file to launch
+
 Example:  
+<pre>
 +----------------------+-----------------+---------------+--------------+--------------------------+----------------------+  
 |      Fire Name       | Size (in acres) | Containment % | Date Started |           City           |        County        |  
 +----------------------+-----------------+---------------+--------------+--------------------------+----------------------+  
