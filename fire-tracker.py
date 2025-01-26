@@ -32,6 +32,16 @@ def format_percentage(data):
     return data
 
 
+def print_options():
+    print("How would you like the table sorted?")
+    print("1. Fire Name")
+    print("2. Size")
+    print("3. Containment %")
+    print("4. Date fire started")
+    print("5. City")
+    print("6. County")
+
+
 def main():
     clear_screen()
     print("**********************************************")
@@ -115,15 +125,11 @@ def main():
 
     sort = []
     exit = False
-    print("How would you like the table sorted?")
-    print("1. Fire Name")
-    print("2. Size")
-    print("3. Containment %")
-    print("4. Date fire started")
-    print("5. City")
-    print("6. County")
+    print_options()
+    initial = True
     while not exit:
         print("X to exit")
+        invalid = False
         sort_by = input("Sort table by: ")
         clear_screen()
         if (
@@ -163,18 +169,30 @@ def main():
         elif sort_by == "6" or sort_by == "County" or sort_by == "county":
             print("Sorting table by County:")
             sort = ["6. County", False]
-        elif sort_by == "X" or sort_by == "x":
+        elif (
+            sort_by == "X"
+            or sort_by == "x"
+            or sort_by == "exit"
+            or sort_by == "Exit"
+            or sort_by == "EXIT"
+        ):
             exit = True
         else:
             print("-----------------------------")
             print(f"Invalid input: {sort_by}")
             print("Enter a valid number or Column Name")
             print("-----------------------------")
+            invalid = True
+            if initial:
+                print_options()
 
         # Prints table
         if exit:
             sys.exit()
+        elif invalid and initial:
+            continue
         else:
+            initial = False
             print(table.get_string(sortby=sort[0], reversesort=sort[1]))
     clear_screen()
 
