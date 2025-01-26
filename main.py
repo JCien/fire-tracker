@@ -1,5 +1,16 @@
 from prettytable import PrettyTable
 import requests
+import os
+import sys
+
+
+def clear_screen():
+    # For Widows
+    if os.name == "nt":
+        os.system("cls")
+    # For Mac and Linux
+    else:
+        os.system("clear")
 
 
 def format_location(data):
@@ -22,10 +33,11 @@ def isolate_location(location, data):
 
 
 def main():
+    clear_screen()
     print("**********************************************")
     print("This app will list current fires in California")
     print("Using data from fire.ca.gov")
-    print("**********************************************")
+    print("**********************************************\n")
 
     # Paramaters for the inactive fire call
     payload_inactive = {"inactive": "false"}
@@ -59,6 +71,7 @@ def main():
             print(f"Invalid input: {include_inactive}")
             print("Valid input is either (Y)es or (N)o")
             print("------------------------------------")
+    clear_screen()
 
     # Fetches data depending on if there should be active fires in the list or not.
     if active_only:
@@ -76,12 +89,12 @@ def main():
     # Creating table with the info pulled from fire.ca.gov
     table = PrettyTable()
     table.field_names = [
-        "Fire Name",
-        "Size (in acres)",
-        "Containment %",
-        "Date Started",
-        "City",
-        "County",
+        "1. Fire Name",
+        "2. Size (in acres)",
+        "3. Containment %",
+        "4. Date Started",
+        "5. City",
+        "6. County",
     ]
     table.align = "c"
 
@@ -109,31 +122,32 @@ def main():
     print("5. City")
     print("6. County")
     while not exit:
+        print("X to exit")
         sort_by = input("Sort table by: ")
+        clear_screen()
         if (
             sort_by == "1"
             or sort_by == "Fire Name"
             or sort_by == "Fire name"
             or sort_by == "fire name"
             or sort_by == "fire"
+            or sort_by == "name"
             or sort_by == "Fire"
         ):
             print("Sorting table by Fire Name:")
-            sort = ["Fire Name", False]
-            exit = True
+            sort = ["1. Fire Name", False]
         elif sort_by == "2" or sort_by == "Size" or sort_by == "size":
             print("Sorting table by Size:")
-            sort = ["Size (in acres)", True]
-            exit = True
+            sort = ["2. Size (in acres)", True]
         elif (
             sort_by == "3"
             or sort_by == "Containment"
             or sort_by == "containment"
             or sort_by == "Containment %"
+            or sort_by == "%"
         ):
             print("Sorting table by Containment %:")
-            sort = ["Containment %", True]
-            exit = True
+            sort = ["3. Containment %", True]
         elif (
             sort_by == "4"
             or sort_by == "Date"
@@ -141,15 +155,14 @@ def main():
             or sort_by == "Date fire started"
         ):
             print("Sorting table by Date Started:")
-            sort = ["Date Started", False]
-            exit = True
+            sort = ["4. Date Started", False]
         elif sort_by == "5" or sort_by == "City" or sort_by == "city":
             print("Sorting table by City:")
-            sort = ["City", False]
-            exit = True
+            sort = ["5. City", False]
         elif sort_by == "6" or sort_by == "County" or sort_by == "county":
             print("Sorting table by County:")
-            sort = ["County", False]
+            sort = ["6. County", False]
+        elif sort_by == "X" or sort_by == "x":
             exit = True
         else:
             print("-----------------------------")
@@ -157,8 +170,12 @@ def main():
             print("Enter a valid number or Column Name")
             print("-----------------------------")
 
-    # Prints table
-    print(table.get_string(sortby=sort[0], reversesort=sort[1]))
+        # Prints table
+        if exit:
+            sys.exit()
+        else:
+            print(table.get_string(sortby=sort[0], reversesort=sort[1]))
+    clear_screen()
 
 
 if __name__ == "__main__":
