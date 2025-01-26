@@ -85,16 +85,31 @@ def main():
 
     # Fetches data depending on if there should be active fires in the list or not.
     if active_only:
-        r = requests.get(
-            "https://incidents.fire.ca.gov/umbraco/api/IncidentApi/List",
-            params=payload_inactive,
-        )
+        try:
+            r = requests.get(
+                "https://incidents.fire.ca.gov/umbraco/api/IncidentApi/List",
+                params=payload_inactive,
+            )
+        except requests.exceptions.RequestException:
+            raise SystemExit(
+                "Error: There was a problem communicating with incidents.fire.ca.gov\nPlease check your connection and try again."
+            )
+
     else:
-        r = requests.get(
-            "https://incidents.fire.ca.gov/umbraco/api/IncidentApi/List",
-            params=payload_active,
-        )
+        try:
+            r = requests.get(
+                "https://incidents.fire.ca.gov/umbraco/api/IncidentApi/List",
+                params=payload_active,
+            )
+        except requests.exceptions.RequestException:
+            raise SystemExit(
+                "Error: There was a problem communicating with incidents.fire.ca.gov\nPlease check your connection and try again."
+            )
     data = r.json()
+
+    # If no data is provided, exit app.
+    if len(data) == 0:
+        sys.exit("No Data provided from fire.ca.gov...\nTry again later.")
 
     # Creating table with the info pulled from fire.ca.gov
     table = PrettyTable()
