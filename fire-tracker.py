@@ -15,6 +15,14 @@ def clear_screen():
         os.system("clear")
 
 
+def swap_sort(sort):
+    if sort:
+        new_sort = False
+    else:
+        new_sort = True
+    return new_sort
+
+
 def format_location(data):
     for fire in data:
         new_location = fire["Location"].split(",")
@@ -142,6 +150,7 @@ def main():
     exit = False
     print_options()
     initial = True
+    flip_sort = False
     while not exit:
         print("X to exit")
         invalid = False
@@ -157,10 +166,12 @@ def main():
             or sort_by == "Fire"
         ):
             print("Sorting table by Fire Name:")
-            sort = ["1. Fire Name", False]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["1. Fire Name", flip_sort]
         elif sort_by == "2" or sort_by == "Size" or sort_by == "size":
             print("Sorting table by Size:")
-            sort = ["2. Size (in acres)", True]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["2. Size (in acres)", flip_sort]
         elif (
             sort_by == "3"
             or sort_by == "Containment"
@@ -169,7 +180,8 @@ def main():
             or sort_by == "%"
         ):
             print("Sorting table by Containment %:")
-            sort = ["3. Containment %", True]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["3. Containment %", flip_sort]
         elif (
             sort_by == "4"
             or sort_by == "Date"
@@ -177,13 +189,16 @@ def main():
             or sort_by == "Date fire started"
         ):
             print("Sorting table by Date Started:")
-            sort = ["4. Date Started", False]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["4. Date Started", flip_sort]
         elif sort_by == "5" or sort_by == "City" or sort_by == "city":
             print("Sorting table by City:")
-            sort = ["5. City", False]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["5. City", flip_sort]
         elif sort_by == "6" or sort_by == "County" or sort_by == "county":
             print("Sorting table by County:")
-            sort = ["6. County", False]
+            flip_sort = swap_sort(flip_sort)
+            sort = ["6. County", flip_sort]
         elif (
             sort_by == "X"
             or sort_by == "x"
